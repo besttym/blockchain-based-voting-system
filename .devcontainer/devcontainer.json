@@ -1,0 +1,23 @@
+{
+	"name": "Academy Container",
+	"dockerFile": "Dockerfile",
+
+	"runArgs": [
+		"--privileged", "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"
+	],
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+
+	"extensions": [
+		"ms-vscode.cpptools",
+		"eamodio.gitlens"
+	],
+
+	"workspaceFolder": "/home/user/workspace",
+	"containerUser": "user",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/user/workspace,type=bind,consistency=cached",
+
+}
