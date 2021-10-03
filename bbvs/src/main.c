@@ -6,16 +6,16 @@ Purpose:
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "bbvs.h"
+
 
 int main(int argc, char **argv)
 {
-  int first = 3;
-  int second = 8;
+  Chain *head = NULL;
+  Chain *current = NULL;
+  vote_data_t votes[MAX_VOTES];
 
-  printf("Example output: %d\n", example(first, second));
+  printf("Example output: %d\n", init_chain());
 
   return 0;
 } /* main */
