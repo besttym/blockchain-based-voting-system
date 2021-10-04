@@ -11,11 +11,16 @@ Purpose:
 
 int main(int argc, char **argv)
 {
-  Chain *head = NULL;
-  Chain *current = NULL;
+  ResultCode result = FAILURE;
+  Chain *chain = NULL;
   vote_data_t votes[MAX_VOTES];
 
-  printf("Example output: %d\n", init_chain());
+  result = init_chain(&chain);
+  if (result == FAILURE)
+  {
+    // LOG("Failed to init chain");
+  }
 
+  free(chain);
   return 0;
 } /* main */
