@@ -13,10 +13,11 @@ Purpose:  Declare the functions
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "openssl/sha.h"
+#include <limits.h>
 
-#define TRUE 1
-#define FALSE 0
 
+#define SHA256_LEN 64
 #define TIMESTAMP_LEN 26
 #define CNP_LEN 13
 #define HASH_LEN 256
@@ -38,6 +39,12 @@ typedef enum
   SUCCESS, // 0
   FAILURE  // 1
 } ResultCode;
+
+typedef enum
+{
+  FALSE, // 0
+  TRUE   // 1
+} Bool;
 
 //Structs
 typedef struct vote_data
@@ -70,7 +77,7 @@ static const Block DEFAULT_BLOCK = {
 ResultCode init_chain(Chain **chain_head);
 ResultCode new_block(Chain **chain_head, vote_data_t *votesArr, int *chainLen, char previousHash[], long proof);
 ResultCode new_vote(vote_data_t vote_data, vote_data_t *votes_arr, int *last_vote_index);
-
-int example(int first, int second);
+long proof_of_work(long last_proof);
+Bool valid_proof(const long last_proof, const long proof);
 
 #endif
