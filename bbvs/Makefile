@@ -28,7 +28,7 @@ test_OBJS := $(test_SOURCES:%=$(BUILD_DIR)/%.o)
 program_CFLAGS := -Iinclude -g -Wall -std=c11
 test_CFLAGS := -Iinclude -g -Wall -std=c11
 
-program_LDFLAGS := -Llib \
+program_LDFLAGS := -Llib -lssl -lcrypto \
 
 test_LDFLAGS := $(program_LDFLAGS) \
                -lcmocka
@@ -40,7 +40,7 @@ test: $(BUILD_DIR)/$(TARGET_TEST)
 all: bbvs test
 
 $(BUILD_DIR)/$(TARGET_EXEC): $(program_OBJS)
-	$(CC) $(program_OBJS) -o $@  $(tas_LDFLAGS)
+	$(CC) $(program_OBJS) -o $@  $(program_LDFLAGS)
 
 $(BUILD_DIR)/$(TARGET_TEST): $(test_OBJS)
 	$(CC) $(test_OBJS) -o $@ $(test_LDFLAGS)

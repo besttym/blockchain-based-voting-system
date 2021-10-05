@@ -16,29 +16,24 @@ Purpose:  Define the UT functions.
 
 #include "../src/bbvs.h"
 
-void test_example(void **state);
 void test_new_vote_valid(void **state);
 void test_init_chain_valid(void **state);
 void test_new_block_valid(void **state);
+void test_valid_proof_valid(void **state);
+void test_proof_of_work(void **state);
 
 int main()
 {
 
   const struct CMUnitTest tests[] = {
-      cmocka_unit_test(test_example),
       cmocka_unit_test(test_new_vote_valid),
       cmocka_unit_test(test_init_chain_valid),
-      cmocka_unit_test(test_new_block_valid)
+      cmocka_unit_test(test_new_block_valid),
+      cmocka_unit_test(test_valid_proof_valid),
+      cmocka_unit_test(test_proof_of_work)
   };
 
   return cmocka_run_group_tests(tests, NULL, NULL);
-}
-
-void test_example(void **state)
-{
-  int result = example(100, 200);
-
-  assert_int_equal(result, 20000);
 }
 
 void test_new_vote_valid(void **state)
@@ -97,4 +92,23 @@ void test_init_chain_valid(void **state)
   assert_null(chain->next);
 
   free(chain);
+}
+
+void test_valid_proof_valid(void **state)
+{
+  long last_proof = 3063270;
+  long proof = 4;
+
+  Bool res = valid_proof(last_proof, proof);
+
+  assert_int_equal(res, TRUE);
+}
+
+void test_proof_of_work(void **state)
+{
+  long last_proof = 3063270;
+
+  long proof = proof_of_work(last_proof);
+
+  assert_int_equal(proof, 3063274);
 }
