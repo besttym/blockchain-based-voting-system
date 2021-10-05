@@ -38,20 +38,12 @@ long proof_of_work(long last_proof)
 
 Bool valid_proof(const long last_proof, const long proof)
 {
-  int i;
   char str[256];
-  char hash_buffer[SHA256_LEN + 1];
   long sum = last_proof + proof;
   sprintf(str, "%ld", sum);
 
-  unsigned char *d = SHA256((const unsigned char *)str, strlen(str), 0);
+  unsigned char *hash_buffer_hex = SHA256((const unsigned char *)str, strlen(str), 0);
 
-	for (i = 0; i < SHA256_DIGEST_LENGTH; i++)
-		sprintf(hash_buffer + 2*i,"%02x", d[i]);
-
-  hash_buffer[SHA256_LEN] = '\0';
-  return (hash_buffer[SHA256_LEN - 1] == '0' &&
-          hash_buffer[SHA256_LEN - 2] == '0' &&
-          hash_buffer[SHA256_LEN - 3] == '0' &&
-          hash_buffer[SHA256_LEN - 4] == '0');
+  return (hash_buffer_hex[SHA256_DIGEST_LENGTH - 1] == 0 &&
+          hash_buffer_hex[SHA256_DIGEST_LENGTH - 2] == 0);
 }
