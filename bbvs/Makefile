@@ -12,7 +12,7 @@ BUILD_DIR ?= ./build
 # This is the list of modules that implement your program logic. Modules in
 # this list are used to build you program (together with src/main.c) and
 # you unit test executable (together with tests/test_main.c)
-common_SOURCES := src/bbvs.c
+common_SOURCES := src/bbvs.c src/chain.c
 
 # This is the list of modules used to build your program.
 program_SOURCES := $(common_SOURCES) \
@@ -25,7 +25,7 @@ test_SOURCES := $(common_SOURCES) \
 program_OBJS := $(program_SOURCES:%=$(BUILD_DIR)/%.o)
 test_OBJS := $(test_SOURCES:%=$(BUILD_DIR)/%.o)
 
-program_CFLAGS := -Iinclude -g -Wall -Werror -std=c11
+program_CFLAGS := -Iinclude -g -Wall -std=c11
 test_CFLAGS := -Iinclude -g -Wall -std=c11
 
 program_LDFLAGS := -Llib \

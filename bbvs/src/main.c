@@ -6,16 +6,21 @@ Purpose:
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "bbvs.h"
+
 
 int main(int argc, char **argv)
 {
-  int first = 3;
-  int second = 8;
+  ResultCode result = FAILURE;
+  Chain *chain = NULL;
+  vote_data_t votes[MAX_VOTES];
 
-  printf("Example output: %d\n", example(first, second));
+  result = init_chain(&chain);
+  if (result == FAILURE)
+  {
+    // LOG("Failed to init chain");
+  }
 
+  free(chain);
   return 0;
 } /* main */
